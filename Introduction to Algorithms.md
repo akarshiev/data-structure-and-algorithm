@@ -8,7 +8,7 @@ Har qanday tizimli yondashuv (systematic approach) — bu algoritmdir. Dasturlas
 
 ### Real hayot misoli: Osh pishirish algoritmi
 - **Kirish (Input):** Piyoz, sabzi, guruch, go‘sht, suv, ziravorlar
-- **Jarayon (Process):** 1. Go‘shtni qovurish → 2. Sabzavotlarni qo‘shish → 3. Guruch va suv qo‘shish → 4. 30 daqiqa qaynatish
+- **Jarayon (Process):** 1. Go‘shtni qovurish -> 2. Sabzavotlarni qo‘shish -> 3. Guruch va suv qo‘shish -> 4. 30 daqiqa qaynatish
 - **Chiqish (Output):** Tayyor osh
 
 ### Keng tarqalgan algoritmlarga misollar:
@@ -25,7 +25,7 @@ Har qanday algoritm uchta asosiy qismdan iborat:
 
 | Qism | Ta’rifi | Misol (Osh) |
 | :--- | :--- | :--- |
-| **Kirish (Input)** | Algoritm ishlashi uchun kerakli ma’lumotlar | Piyoz, sabzi, gurux |
+| **Kirish (Input)** | Algoritm ishlashi uchun kerakli ma’lumotlar | Piyoz, sabzi, guruch |
 | **Jarayon (Process)** | Kirish ma’lumotlari ustida bajariladigan amallar ketma-ketligi | Qovurish, qaynatish |
 | **Chiqish (Output)** | Algoritm natijasida olinadigan ma’lumot | Tayyor osh |
 
@@ -33,9 +33,9 @@ Muammoni qanchalik chuqur tushunsak va uning talablarini (requirements) aniq bel
 
 ### Matematikadan misol: Kvadrat tenglama yechimi
 `ax² + bx + c = 0` ko‘rinishidagi kvadrat tenglamani yechish uchun aniq formula (algoritm) mavjud:
-```
-x = [-b ± √(b² - 4ac)] / 2a
-```
+
+![https://stock.adobe.com/search?k=%22quadratic+formula%22](https://imgs.search.brave.com/IelFOPzEwpGHxhtIGIk_dN7rXQmrSVM2_EZMNiB44lk/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90NC5m/dGNkbi5uZXQvanBn/LzE0LzQxLzg3LzAx/LzM2MF9GXzE0NDE4/NzAxNzNfS0I2QjBn/dkFkRFE4YzR0bTZR/eURBV2wwQVNtbDNl/c2IuanBn)
+
 Bu yerda:
 - **Kirish:** a, b, c koeffitsiyentlari
 - **Jarayon:** Diskriminantni hisoblash, ildizlarni topish
