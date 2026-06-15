@@ -1,173 +1,392 @@
-# 📚 Data Structures and Algorithms
+# Data Structures & Algorithms
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)](https://openjdk.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-> Ma'lumotlar tuzilmalari va algoritmlarni noldan o'rganish uchun amaliy qo'llanma
+A clean, well-documented implementation of fundamental data structures and algorithms in Java, built from scratch without any external libraries.
 
 ---
 
-## 📁 Loyiha tuzilishi
+## Table of Contents
+
+- [Project Structure](#project-structure)
+- [Getting Started](#getting-started)
+- [Data Structures](#data-structures)
+- [Algorithms](#algorithms)
+- [Complexity Summary](#complexity-summary)
+- [Running the Tests](#running-the-tests)
+- [Contributing](#contributing)
+- [Resources](#resources)
+
+---
+
+## Project Structure
 
 ```
-data-structures-and-algorithms/
+data-structure-and-algorithm/
 │
-├── README.md                          # Loyiha haqida ma'lumot
-│
-├── java/                              # Java dasturlari
-│   ├── data-structures/               # Ma'lumotlar tuzilmalari
-│   │   ├── arrays/                    # Massivlar
-│   │   ├── linked-list/              # Bog'langan ro'yxatlar
-│   │   ├── stack/                     # Stek
-│   │   ├── queue/                     # Navbat
-│   │   ├── hash-map/                  # Xesh xaritasi
-│   │   ├── tree/                      # Daraxtlar
-│   │   ├── heap/                      # Kupyura
-│   │   └── graph/                     # Graf
+├── src/
+│   ├── main/java/
+│   │   ├── datastructures/
+│   │   │   ├── array/          CustomArray.java
+│   │   │   ├── linkedlist/     SinglyLinkedList.java
+│   │   │   ├── stack/          Stack.java
+│   │   │   ├── queue/          Queue.java
+│   │   │   ├── hashmap/        CustomHashMap.java
+│   │   │   ├── tree/           BinarySearchTree.java
+│   │   │   ├── heap/           MaxHeap.java
+│   │   │   └── graph/          Graph.java
+│   │   │
+│   │   └── algorithms/
+│   │       ├── sorting/        SortingAlgorithms.java
+│   │       ├── searching/      SearchingAlgorithms.java
+│   │       ├── recursion/      RecursionExamples.java
+│   │       ├── dynamicprogramming/  DynamicProgrammingExamples.java
+│   │       ├── greedy/         GreedyExamples.java
+│   │       └── graphalgorithms/ GraphAlgorithms.java
 │   │
-│   └── algorithms/                    # Algoritmlar
-│       ├── sorting/                   # Saralash
-│       ├── searching/                 # Qidirish
-│       ├── recursion/                 # Rekursiya
-│       ├── dynamic-programming/       # Dinamik dasturlash
-│       ├── greedy/                    # Ochko'zlik
-│       └── graph-algorithms/          # Graf algoritmlari
+│   └── test/java/
+│       ├── datastructures/     DataStructuresTest.java
+│       └── algorithms/         AlgorithmsTest.java
 │
-├── go/                                # Go dasturlari (tez orada)
-│   ├── data-structures/
-│   └── algorithms/
+├── docs/
+│   ├── complexity-analysis.md
+│   ├── big-o-notation.md
+│   └── interview-notes.md
 │
-└── docs/                              # Hujjatlar
-    ├── complexity-analysis.md         # Murakkablik tahlili
-    ├── big-o-notation.md              # Big O
-    └── interview-notes.md             # Suhbat uchun eslatmalar
+└── README.md
 ```
 
 ---
 
-## 🚀 Boshlash
+## Getting Started
 
-### Java dasturlarini ishga tushirish
+**Compile:**
+```bash
+javac -sourcepath src/main/java -d out $(find src/main/java -name "*.java")
+```
+
+**Run tests:**
+```bash
+javac -ea -sourcepath src/main/java:src/test/java -d out $(find src -name "*.java")
+java -ea -cp out datastructures.DataStructuresTest
+java -ea -cp out algorithms.AlgorithmsTest
+```
+
+---
+
+## Data Structures
+
+### CustomArray `datastructures.array`
+A generic dynamic array (similar to `ArrayList`) that doubles capacity when full.
+
+```java
+CustomArray<Integer> arr = new CustomArray<>();
+arr.add(10);
+arr.add(20);
+int value = arr.get(0); // 10
+arr.remove(0);
+```
+
+| Operation | Complexity |
+|-----------|-----------|
+| `get` / `set` | O(1) |
+| `add` (end) | O(1) amortized |
+| `remove` | O(n) |
+| `indexOf` | O(n) |
+
+---
+
+### SinglyLinkedList `datastructures.linkedlist`
+A generic singly-linked list with head insertion in O(1).
+
+```java
+SinglyLinkedList<String> list = new SinglyLinkedList<>();
+list.addFirst("B");
+list.addFirst("A");
+list.addLast("C");
+list.reverse();
+```
+
+| Operation | Complexity |
+|-----------|-----------|
+| `addFirst` / `removeFirst` | O(1) |
+| `addLast` | O(n) |
+| `get` / `indexOf` | O(n) |
+
+---
+
+### Stack `datastructures.stack`
+A generic LIFO stack backed by a linked list. All operations are O(1).
+
+```java
+Stack<Integer> stack = new Stack<>();
+stack.push(1);
+stack.push(2);
+int top = stack.pop();  // 2
+int peek = stack.peek(); // 1
+```
+
+**Uses:** expression evaluation, undo/redo, DFS, backtracking.
+
+---
+
+### Queue `datastructures.queue`
+A generic FIFO queue backed by a linked list with O(1) enqueue and dequeue.
+
+```java
+Queue<String> queue = new Queue<>();
+queue.enqueue("first");
+queue.enqueue("second");
+String front = queue.dequeue(); // "first"
+```
+
+**Uses:** BFS, task scheduling, message queues.
+
+---
+
+### CustomHashMap `datastructures.hashmap`
+A generic hash map using separate chaining. Resizes when the load factor exceeds 0.75.
+
+```java
+CustomHashMap<String, Integer> map = new CustomHashMap<>();
+map.put("Alice", 30);
+int age = map.get("Alice"); // 30
+map.remove("Alice");
+```
+
+| Operation | Average | Worst |
+|-----------|---------|-------|
+| `put` / `get` / `remove` | O(1) | O(n) |
+
+---
+
+### BinarySearchTree `datastructures.tree`
+An integer BST with recursive insert, search, delete, and three traversal orders.
+
+```java
+BinarySearchTree bst = new BinarySearchTree();
+bst.insert(50); bst.insert(30); bst.insert(70);
+boolean found = bst.search(30); // true
+bst.delete(30);
+bst.inOrder(); // prints sorted order
+```
+
+| Operation | Average | Worst |
+|-----------|---------|-------|
+| `insert` / `search` / `delete` | O(log n) | O(n) |
+
+---
+
+### MaxHeap `datastructures.heap`
+An integer max-heap stored in a resizable array. The maximum element is always at the root.
+
+```java
+MaxHeap heap = new MaxHeap();
+heap.insert(10); heap.insert(50); heap.insert(30);
+int max = heap.extractMax(); // 50
+```
+
+| Operation | Complexity |
+|-----------|-----------|
+| `peek` | O(1) |
+| `insert` / `extractMax` | O(log n) |
+
+**Uses:** priority queues, heap sort, top-K problems.
+
+---
+
+### Graph `datastructures.graph`
+An undirected or directed graph using an adjacency-list representation, with BFS and DFS.
+
+```java
+Graph g = new Graph(false); // undirected
+g.addEdge("A", "B");
+g.addEdge("B", "C");
+
+List<String> bfsOrder = g.bfs("A"); // [A, B, C]
+boolean connected = g.hasPath("A", "C"); // true
+```
+
+---
+
+## Algorithms
+
+### Sorting `algorithms.sorting`
+
+All methods sort in ascending order and operate in place.
+
+```java
+int[] arr = {64, 34, 25, 12, 22, 11, 90};
+
+SortingAlgorithms.bubbleSort(arr);
+SortingAlgorithms.mergeSort(arr);
+SortingAlgorithms.quickSort(arr, 0, arr.length - 1);
+```
+
+| Algorithm | Best | Average | Worst | Space | Stable |
+|-----------|------|---------|-------|-------|--------|
+| Bubble Sort | O(n) | O(n²) | O(n²) | O(1) | Yes |
+| Selection Sort | O(n²) | O(n²) | O(n²) | O(1) | No |
+| Insertion Sort | O(n) | O(n²) | O(n²) | O(1) | Yes |
+| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) | Yes |
+| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) | No |
+
+---
+
+### Searching `algorithms.searching`
+
+```java
+int[] sorted = {2, 5, 8, 12, 16, 23, 38};
+int idx = SearchingAlgorithms.binarySearch(sorted, 12); // 3
+```
+
+| Algorithm | Time | Precondition |
+|-----------|------|--------------|
+| Linear Search | O(n) | None |
+| Binary Search | O(log n) | Sorted |
+| Jump Search | O(√n) | Sorted |
+| Interpolation Search | O(log log n)* | Sorted, uniform |
+
+---
+
+### Recursion `algorithms.recursion`
+
+Classic recursive problems with memoization variants.
+
+```java
+long fact  = RecursionExamples.factorial(10);       // 3628800
+long fib   = RecursionExamples.fibonacciMemo(50);   // 12586269025
+long pow   = RecursionExamples.fastPower(2, 30);    // 1073741824
+String rev = RecursionExamples.reverseString("hello"); // "olleh"
+RecursionExamples.towerOfHanoi(3, 'A', 'C', 'B');
+```
+
+---
+
+### Dynamic Programming `algorithms.dynamicprogramming`
+
+| Problem | Method | Complexity |
+|---------|--------|-----------|
+| Fibonacci | `fibonacciTabulation` | O(n) time, O(n) space |
+| Coin Change | `coinChange` | O(amount × coins) |
+| 0/1 Knapsack | `knapsack` | O(n × capacity) |
+| LCS | `longestCommonSubsequence` | O(m × n) |
+| LIS | `longestIncreasingSubsequence` | O(n²) |
+| Edit Distance | `editDistance` | O(m × n) |
+
+---
+
+### Greedy `algorithms.greedy`
+
+```java
+// Fractional Knapsack
+double maxValue = GreedyExamples.fractionalKnapsack(weights, values, capacity);
+
+// Activity Selection (maximum non-overlapping activities)
+int count = GreedyExamples.activitySelection(startTimes, finishTimes);
+
+// Job Scheduling (maximum profit)
+int profit = GreedyExamples.jobScheduling(profits, deadlines);
+```
+
+---
+
+### Graph Algorithms `algorithms.graphalgorithms`
+
+```java
+GraphAlgorithms.WeightedGraph g = new GraphAlgorithms.WeightedGraph();
+g.addEdge("A", "B", 4);
+g.addEdge("A", "C", 2);
+g.addEdge("C", "B", 1);
+
+// Dijkstra (non-negative weights)
+Map<String, Integer> dist = GraphAlgorithms.dijkstra(g, "A");
+
+// Bellman-Ford (handles negative weights)
+Map<String, Integer> dist2 = GraphAlgorithms.bellmanFord(g, "A", 3);
+
+// Topological Sort (DAG only)
+List<String> order = GraphAlgorithms.topologicalSort(dag);
+
+// Cycle Detection
+boolean cyclic = GraphAlgorithms.hasCycle(directedGraph);
+```
+
+| Algorithm | Time |
+|-----------|------|
+| Dijkstra | O((V + E) log V) |
+| Bellman-Ford | O(V × E) |
+| Topological Sort | O(V + E) |
+| Cycle Detection | O(V + E) |
+
+---
+
+## Running the Tests
+
+The test files in `src/test/java/` use Java assertions (`assert`) for lightweight verification without external frameworks.
 
 ```bash
-# Ma'lumotlar tuzilmalarini sinash
-javac java/data-structures/arrays/CustomArray.java
-java data.structures.arrays.CustomArray
+# Compile everything
+javac -ea -sourcepath src/main/java:src/test/java -d out \
+      $(find src -name "*.java")
 
-# Algoritmlarni sinash
-javac java/algorithms/sorting/SortingAlgorithms.java
-java algorithms.sorting.SortingAlgorithms
+# Run data structure tests
+java -ea -cp out datastructures.DataStructuresTest
+
+# Run algorithm tests
+java -ea -cp out algorithms.AlgorithmsTest
+```
+
+Expected output:
+```
+--- CustomArray ---
+  PASS
+--- SinglyLinkedList ---
+  PASS
+...
+✅ All tests passed.
 ```
 
 ---
 
-## 📚 Ma'lumotlar Tuzilmalari
+## Contributing
 
-### Array (Massiv)
-- **Vaqt murakkabligi:** O(1) kirish, O(n) qo'shish/o'chirish
-- **Xususiyatlari:** Indeks bilan tez kirish, lekin o'lchami doimiy
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feat/add-avl-tree`
+3. Commit with conventional format: `git commit -m "feat: add AVL tree with rotation"`
+4. Push and open a Pull Request
 
-### Linked List (Bog'langan Ro'yxat)
-- **Vaqt murakkabligi:** O(1) qo'shish/o'chirish (boshida), O(n) kirish
-- **Xususiyatlari:** Dinamik o'lcham, tez qo'shish/o'chirish
+**Commit message conventions:**
 
-### Stack (Stek)
-- **Vaqt murakkabligi:** O(1) barcha amallar
-- **Xususiyatlari:** LIFO (Last In, First Out)
+| Prefix | When to use |
+|--------|------------|
+| `feat:` | New data structure or algorithm |
+| `fix:` | Bug fix in existing implementation |
+| `docs:` | README or Javadoc update |
+| `refactor:` | Code cleanup with no behaviour change |
+| `test:` | Adding or updating tests |
 
-### Queue (Navbat)
-- **Vaqt murakkabligi:** O(1) barcha amallar
-- **Xususiyatlari:** FIFO (First In, First Out)
-
-### HashMap (Xesh Xaritasi)
-- **Vaqt murakkabligi:** O(1) o'rtacha qidirish
-- **Xususiyatlari:** Kalit-qiymat juftligi, tez qidirish
-
-### Tree (Daraxt)
-- **Vaqt murakkabligi:** O(log n) qidirish (balanced)
-- **Xususiyatlari:** Ierarxik tuzilma
-
-### Heap (Kupyura)
-- **Vaqt murakkabligi:** O(1) max/min, O(log n) qo'shish/o'chirish
-- **Xususiyatlari:** Eng katta/kichik element tezda topiladi
-
-### Graph (Graf)
-- **Vaqt murakkabligi:** O(V + E) BFS/DFS
-- **Xususiyatlari:** Nuqtalar va bog'lanishlar
+**Ideas for contribution:**
+- Go / Python implementations (mirror the `java/` layout)
+- Doubly linked list, deque, trie, segment tree
+- AVL tree / Red-Black tree
+- A\* search, Floyd-Warshall, Prim's / Kruskal's MST
+- LeetCode problem solutions linked to the relevant data structure
 
 ---
 
-## 📚 Algoritmlar
+## Resources
 
-### Saralash (Sorting)
-
-| Algoritm | Eng yaxshi | O'rtacha | Eng yomon | Xotira |
-|----------|------------|----------|-----------|--------|
-| Bubble Sort | O(n) | O(n²) | O(n²) | O(1) |
-| Selection Sort | O(n²) | O(n²) | O(n²) | O(1) |
-| Insertion Sort | O(n) | O(n²) | O(n²) | O(1) |
-| Merge Sort | O(n log n) | O(n log n) | O(n log n) | O(n) |
-| Quick Sort | O(n log n) | O(n log n) | O(n²) | O(log n) |
-| Heap Sort | O(n log n) | O(n log n) | O(n log n) | O(1) |
-
-### Qidirish (Searching)
-
-| Algoritm | Vaqt | Shart |
-|----------|------|-------|
-| Linear Search | O(n) | Hech qanday |
-| Binary Search | O(log n) | Saralangan massiv |
-
-### Graf Algoritmlari
-
-| Algoritm | Vaqt | Foydalanish |
-|----------|------|-------------|
-| BFS | O(V + E) | Eng qisqa yo'l |
-| DFS | O(V + E) | Halqa aniqlash |
-| Dijkstra | O((V+E)logV) | Eng qisqa yo'l (og'irlikli) |
-
----
-
-## 🤝 Hissa qo'shish (Contributing)
-
-Loyiha ochiq! Boshqa tillarda ham algoritmlarni qo'shishingiz mumkin.
-
-### Qanday hissa qo'shish kerak:
-
-1. Fork qiling
-2. Branch yarating (`git checkout -b feature/amazing-feature`)
-3. O'zgarishlaringizni commit qiling (`git commit -m 'Add amazing feature'`)
-4. Push qiling (`git push origin feature/amazing-feature`)
-5. Pull Request yarating
-
-### Yangi til qo'shish:
-
-1. Til nomi bilan papka yarating (masalan, `python/`)
-2. Shu papka ichida data-structures va algorithms papkalari yarating
-3. Har bir algoritmda batafsil kommentariyalar qoldiring
-4. README ga qo'shing
-
----
-
-## 📖 O'rganish manbalari
-
-- [GeeksforGeeks](https://www.geeksforgeeks.org/)
+- [Big-O Cheat Sheet](https://www.bigocheatsheet.com/)
+- [Visualgo — Algorithm Visualizations](https://visualgo.net/)
 - [LeetCode](https://leetcode.com/)
-- [HackerRank](https://www.hackerrank.com/)
-- [Big O Cheat Sheet](https://www.bigocheatsheet.com/)
+- [GeeksforGeeks DSA](https://www.geeksforgeeks.org/data-structures/)
+- [Algorithms, Part I & II — Princeton (Coursera)](https://www.coursera.org/learn/algorithms-part1)
 
 ---
 
-## 📄 Litsenziya
+## License
 
-Bu loyiha MIT litsenziyasi ostida. Batafsil: [LICENSE](LICENSE)
-
----
-
-## ✨ Xususiyatlar
-
-- ✅ Barcha algoritmlar noldan yozilgan
-- ✅ Batafsil kommentariyalar (o'zbek tilida)
-- ✅ Amaliy misollar
-- ✅ Murakkablik tahlili
-- ✅ Suhbat uchun tayyorlangan savollar
-- ✅ Open Source - hissa qo'shishga ochiq
+This project is licensed under the [MIT License](LICENSE).
